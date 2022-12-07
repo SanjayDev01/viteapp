@@ -1,9 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useState } from "react";
+import { createBrowserRouter } from "react-router-dom";
+import ALLPosts from "./AllPosts";
+import "./App.css";
+import reactLogo from "./assets/react.svg";
+import MessageBoard from "./MesageBoard";
+import PostView from "./PostView";
+import Welcome from "./Welcome";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: "",
+        element: <MessageBoard />,
+        children: [
+          {
+            path: ":pageNumber",
+            element: <ALLPosts />,
+          },
+          {
+            path: "post/:postId",
+            element: <PostView />,
+          },
+        ],
+      },
+      {
+        path: "welcome",
+        element: <Welcome />,
+      },
+    ],
+  },
+]);
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <div className="App">
@@ -28,7 +60,11 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
+
+function Layout() {
+  return <h2>Layout</h2>;
+}
